@@ -6,8 +6,10 @@ import Information from '../containers/information';
 import Charity from '../containers/charity';
 import NavBar from './navbar';
 import Detail from '../containers/detail';
+import ProDetail from '../containers/proDetail';
 import IssueVpj from '../containers/issueVpj';
 import IssueCpj from '../containers/issueCpj';
+import Register from '../containers/register';
 class preTabBar extends React.Component {
     constructor(props) {
         super(props);
@@ -36,19 +38,19 @@ class preTabBar extends React.Component {
                         icon={<div style={{
                             width: '22px',
                             height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
+                            background: 'url(/images/s1.svg) center center /  21px 21px no-repeat'
                         }}
                         />
                         }
                         selectedIcon={<div style={{
                             width: '22px',
                             height: '22px',
-                            background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+                            background: 'url(/images/s1.svg) center center /  21px 21px no-repeat'
                         }}
                         />
                         }
                         selected={this.state.selectedTab === 'blueTab'}
-                        badge={1}
+                  
                         onPress={() => {
                             this.props.history.push('/charity');
                             this.setState({
@@ -61,15 +63,17 @@ class preTabBar extends React.Component {
                         <Route exact path='/' component={Charity} />
                         <Route path='/charity' component={Charity} />
                         <Route path='/detail/1/:projectId' component={Detail} />
+                        <Route path='/detail/2/:projectId' component={ProDetail} />
                         <Route path='/issueVpj' component={IssueVpj} />
                         <Route path='/issueCpj' component={IssueCpj} />
+                        <Route path='/register' component={Register} />
                     </TabBar.Item>
                     <TabBar.Item
                         icon={
                             <div style={{
                                 width: '22px',
                                 height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
+                                background: 'url(/images/s2.svg) center center /  21px 21px no-repeat'
                             }}
                             />
                         }
@@ -77,13 +81,13 @@ class preTabBar extends React.Component {
                             <div style={{
                                 width: '22px',
                                 height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+                                background: 'url(/images/s2.svg) center center /  21px 21px no-repeat'
                             }}
                             />
                         }
                         title="志愿者"
                         key="volunteer"
-                        badge={'new'}
+         
                         selected={this.state.selectedTab === 'redTab'}
                         onPress={() => {
                             this.props.history.push('/volunteer');
@@ -95,9 +99,11 @@ class preTabBar extends React.Component {
                     >
                         <NavBar />
                         <Route path='/volunteer' component={Volunteer} />
-                        <Route path='/detail/2/:projectId' component={Detail} />
+                        <Route path='/detail/1/:projectId' component={Detail} />
+                        <Route path='/detail/2/:projectId' component={ProDetail} />
                         <Route path='/issueVpj' component={IssueVpj} />
                         <Route path='/issueCpj' component={IssueCpj} />
+                        <Route path='/register' component={Register} />
                     </TabBar.Item>
                     <TabBar.Item
                         icon={
@@ -132,6 +138,9 @@ class preTabBar extends React.Component {
                         <Route path='/information' component={Information} />
                         <Route path='/issueVpj' component={IssueVpj} />
                         <Route path='/issueCpj' component={IssueCpj} />
+                        <Route path='/register' component={Register} />
+                        <Route path='/detail/1/:projectId' component={Detail} />
+                        <Route path='/detail/2/:projectId' component={ProDetail} />
                     </TabBar.Item>
             
                 </TabBar>

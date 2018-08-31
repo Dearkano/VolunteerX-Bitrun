@@ -45,3 +45,8 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+.space-carousel {
+  padding: 16px;
+  background: #DEF1E5;
+  overflow: hidden;
+}

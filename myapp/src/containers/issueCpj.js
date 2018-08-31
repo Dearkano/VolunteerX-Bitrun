@@ -1,4 +1,4 @@
-import { List, InputItem, TextareaItem,DatePicker } from 'antd-mobile';
+import { List, InputItem, TextareaItem,Button } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import * as React from 'react';
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
@@ -55,7 +55,9 @@ export default createForm()(class extends React.Component {
                 />
 
             </List.Item>
-
+            <List.Item>
+                    <Button type="primary">发布</Button>
+                    </List.Item>
         </List>;
     }
 }

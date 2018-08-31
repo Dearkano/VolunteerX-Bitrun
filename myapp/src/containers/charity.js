@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import ListView from '../components/listview';
+import Carousel from '../components/carousel';
 export default class extends React.Component {
     render() {
         const obj={
@@ -15,6 +16,8 @@ export default class extends React.Component {
           }
         return(
         <WingBlank size="lg">
+          <WhiteSpace size="lg" />
+            <Carousel />
             <WhiteSpace size="lg" />
             <ListView data={[obj,obj,obj]}/>
             <WhiteSpace size="lg" />
