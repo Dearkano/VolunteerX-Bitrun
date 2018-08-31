@@ -1,0 +1,47 @@
+@import '~antd-mobile/dist/antd-mobile.css';
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.list-discription{
+  text-overflow: ellipsis;
+  max-height: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.list-image{
+  width:100%;
+}
+.list-information{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
