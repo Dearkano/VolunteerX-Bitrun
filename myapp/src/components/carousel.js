@@ -18,9 +18,7 @@ export default class extends React.Component {
     return (
       <WingBlank>
        <Carousel className="space-carousel"
-          frameOverflow="visible"
-          cellSpacing={10}
-          slideWidth={0.8}
+       
           autoplay
           infinite
           beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}

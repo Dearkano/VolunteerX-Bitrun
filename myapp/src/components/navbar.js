@@ -1,4 +1,4 @@
-import { NavBar, Popover} from 'antd-mobile';
+import { NavBar, Popover,Icon} from 'antd-mobile';
 import * as React from 'react';
 import {withRouter} from 'react-router-dom';
 const Item = Popover.Item;
@@ -39,7 +39,7 @@ export default withRouter(class extends React.Component{
             <div>
             <NavBar
               mode="light"
- 
+            style={{background:"#108ee9",color:"#fff",fontStyle:"italic"}}
               onLeftClick={() => console.log('onLeftClick')}
               rightContent={[
                   <Popover mask
@@ -47,10 +47,10 @@ export default withRouter(class extends React.Component{
                     overlayStyle={{ color: 'currentColor' }}
                     visible={this.state.visible}
                     overlay={[
-                      (<Item key="4" value="volunteer" icon={myImg('tOtXhkIWzwotgGSeptou')} data-seed="logId">志愿项目</Item>),
-                      (<Item key="5" value="charity" icon={myImg('PKAgAqZWJVNwKsAJSmXd')} style={{ whiteSpace: 'nowrap' }}>捐赠项目</Item>),
-                      (<Item key="6" value="donation" icon={myImg('PKAgAqZWJVNwKsAJSmXd')} style={{ whiteSpace: 'nowrap' }}>捐献资金</Item>),
-                      (<Item key="7" value="manage" icon={myImg('uQIYTFeRrjPELImDRrPt')}>
+                      (<Item key="4" value="volunteer" icon={<div><img style={{width:"22px",marginTop:"-3px"}}src='/images/s2.svg' /></div>} data-seed="logId">志愿项目</Item>),
+                      (<Item key="5" value="charity" icon={<div><img style={{width:"22px",marginTop:"-3px"}}src='/images/s1.svg' /></div>} style={{ whiteSpace: 'nowrap' }}>捐赠项目</Item>),
+                      (<Item key="6" value="donation" icon={<div><img style={{width:"22px",marginTop:"-3px"}}src='/images/s3.svg' /></div>} style={{ whiteSpace: 'nowrap' }}>捐献资金</Item>),
+                      (<Item key="7" value="manage" icon={<div><img style={{width:"22px",marginTop:"-3px"}}src='/images/s4.svg' /></div>}>
                         <span style={{ marginRight: 5 }}>管理</span>
                       </Item>),
                     ]}
@@ -69,13 +69,13 @@ export default withRouter(class extends React.Component{
                       alignItems: 'center',
                     }}
                     >
-                       <img style={{width:"32px"}} src='/images/plus.png' />
+                       <img style={{width:"32px"}} src='/images/plus.svg' />
                     </div>
                   </Popover>
 
     
               ]}
-            >VolunteerX</NavBar>
+            ><div style={{color:"#fff"}}>VolunteerX</div></NavBar>
           </div>
         )
     }

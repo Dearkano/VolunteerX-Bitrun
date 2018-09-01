@@ -52,7 +52,7 @@ export default withRouter(createForm()(class extends React.Component {
               } else {
                 that.setState({ submitText1: submitTexts.submitted })
               }
-              this.props.history.push("/");
+              that.props.history.push("/");
             } else {
               throw new Error(receipt.errorMessage)
             }

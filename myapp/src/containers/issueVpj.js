@@ -3,7 +3,10 @@ import { createForm } from 'rc-form';
 import * as React from 'react';
 import Submit from '../components/submit';
 import nervos from '../nervos';
+import {withRouter} from 'react-router-dom';
 import { transaction, simpleStoreContract } from '../simpleStore'
+
+import {BigNumber} from 'bignumber.js';
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let moneyKeyboardWrapProps;
 if (isIPhone) {
@@ -16,16 +19,18 @@ const submitTexts = {
     submitting: '发布中',
     submitted: '发布成功',
   }
-export default createForm()(class extends React.Component {
+export default withRouter(createForm()(class extends React.Component {
     state = {
         type: 'money',
         submitText: submitTexts.normal,
         errorText: '',
     }
+
     async onClickSubmit(){
         const time = this.state.date.getTime();
         const blockNumber = await nervos.appchain.getBlockNumber();
         console.log("blocknumber="+blockNumber);
+        const bonus = BigNumber(this.bonusRef.props.value).shiftedBy(18);
         const tx = {
             ...transaction,
             from:window.neuron.getAccount(),
@@ -36,12 +41,13 @@ export default createForm()(class extends React.Component {
           submitText: submitTexts.submitting,
          })
           console.log(tx.from);
-          simpleStoreContract.methods.newWelfareItem(this.titleRef.props.value,this.descriptionRef.props.value,this.amountRef.props.value,this.bonusRef.props.value,time).send(tx, function(err, res) {
+          simpleStoreContract.methods.newWelfareItem(this.titleRef.props.value,this.descriptionRef.props.value,this.amountRef.props.value,bonus,time).send(tx, function(err, res) {
             if (res) {
               nervos.listeners.listenToTransactionReceipt(res)
                 .then(receipt => {
                   if (!receipt.errorMessage) {
                      that.setState({ submitText: submitTexts.submitted })
+                     that.props.history.push(`/volunteer`);
                   } else {
                     throw new Error(receipt.errorMessage)
                   }
@@ -130,4 +136,5 @@ export default createForm()(class extends React.Component {
         </List>;
     }
 }
+)
 )

@@ -24,7 +24,6 @@ export default class extends React.Component {
             from: window.neuron.getAccount()
         });
         const ids = data._userIds;
-        alert(JSON.stringify(data));
         const usersInfo = [];
         for(let i in ids){
             let item = await simpleStoreContract.methods
@@ -68,12 +67,13 @@ export default class extends React.Component {
     }
     render() {
         //  this.props.match.params.projectId
+        let src =`/images/volunteer${this.props.match.params.projectId%5+1}.png`
         return (
             <WingBlank>
-                <h3>乌镇-世界互联网大会志愿者招募</h3>
-                <img style={{ width: "100%", height: "100%" }} src="/images/volunteer.jpg" />
+                <h3>{this.state.data._title}</h3>
+                <img style={{ width: "100%", height: "100%" }} src={src} />
                 <p>
-                    世界互联网大会（World Internet Conference），是由中华人民共和国倡导并每年在浙江省嘉兴市桐乡乌镇举办的世界性互联网盛会，旨在搭建中国与世界互联互通的国际平台和国际互联网共享共治的中国平台，让各国在争议中求共识、在共识中谋合作、在合作中创共赢。
+                    {this.state.data._desc}
                     </p>
                 <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal} onClick={this.onClickSubmit.bind(this)} ></Submit>
                 <WhiteSpace />

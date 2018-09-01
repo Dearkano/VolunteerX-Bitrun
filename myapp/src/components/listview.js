@@ -8,7 +8,8 @@ export default withRouter(class extends React.Component {
     disabled: false,
   }
   convertDatatoCard(data){
-    return <Item onClick={()=>this.props.history.push(`/detail/${this.props.mode}/${data.id}`)}><CardView data={data}/></Item>
+  
+    return <Item onClick={data._donate?null:()=>this.props.history.push(`/detail/${this.props.mode}/${data.id}`)}><CardView data={data} mode={this.props.mode}/></Item>
   }
   render() {
 

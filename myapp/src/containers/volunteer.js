@@ -12,7 +12,7 @@ export default class extends React.Component {
             .call({
                 from: window.neuron.getAccount(),
             });
-            alert(ids);
+        
         let data = [];
         for (let i in ids) {
             let item = await simpleStoreContract.methods
@@ -20,8 +20,8 @@ export default class extends React.Component {
             .call({
                 from: window.neuron.getAccount()
             });
-            item.participants=ids.length;
-            item.imgUrl="/images/volunteer.jpg";
+            item.participants=item._userIds.length;
+            item.imgUrl=`/images/volunteer${ids[i]%5+1}.png`;
             item.id=ids[i];
             data.push(item);
         }
@@ -30,7 +30,7 @@ export default class extends React.Component {
     render() {
       const content =  <WingBlank size="lg">
       <WhiteSpace size="lg" />
-      <ListView data={this.state.data}mode={1}/>
+      <ListView data={this.state.data}mode={2}/>
       <WhiteSpace size="lg" />
   </WingBlank>;
   const toast = <ActivityIndicator

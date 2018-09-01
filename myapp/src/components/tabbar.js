@@ -65,7 +65,7 @@ class preTabBar extends React.Component {
                 selectedIcon={<div style={{
                     width: '22px',
                     height: '22px',
-                    background: 'url(/images/s1.svg) center center /  21px 21px no-repeat'
+                    background: 'url(/images/s11.svg) center center /  21px 21px no-repeat'
                 }}
                 />
                 }
@@ -82,8 +82,8 @@ class preTabBar extends React.Component {
                 <NavBar />
                 <Route exact path='/' component={Charity} />
                 <Route path='/charity' component={Charity} />
-                <Route path='/detail/1/:projectId' component={Detail} />
-                <Route path='/detail/2/:projectId' component={ProDetail} />
+                <Route path='/detail/2/:projectId' component={Detail} />
+                <Route path='/detail/1/:projectId' component={ProDetail} />
                 <Route path='/issueVpj' component={IssueVpj} />
                 <Route path='/issueCpj' component={IssueCpj} />
                 <Route path='/register' component={Register} />
@@ -103,7 +103,7 @@ class preTabBar extends React.Component {
                     <div style={{
                         width: '22px',
                         height: '22px',
-                        background: 'url(/images/s2.svg) center center /  21px 21px no-repeat'
+                        background: 'url(/images/s22.svg) center center /  21px 21px no-repeat'
                     }}
                     />
                 }
@@ -121,8 +121,8 @@ class preTabBar extends React.Component {
             >
                 <NavBar />
                 <Route path='/volunteer' component={Volunteer} />
-                <Route path='/detail/1/:projectId' component={Detail} />
-                <Route path='/detail/2/:projectId' component={ProDetail} />
+                <Route path='/detail/2/:projectId' component={Detail} />
+                <Route path='/detail/1/:projectId' component={ProDetail} />
                 <Route path='/issueVpj' component={IssueVpj} />
                 <Route path='/issueCpj' component={IssueCpj} />
                 <Route path='/register' component={Register} />
@@ -163,8 +163,8 @@ class preTabBar extends React.Component {
                 <Route path='/issueVpj' component={IssueVpj} />
                 <Route path='/issueCpj' component={IssueCpj} />
                 <Route path='/register' component={Register} />
-                <Route path='/detail/1/:projectId' component={Detail} />
-                <Route path='/detail/2/:projectId' component={ProDetail} />
+                <Route path='/detail/2/:projectId' component={Detail} />
+                <Route path='/detail/1/:projectId' component={ProDetail} />
                 <Route path='/donation' component={Donation} />
                 <Route path='/manage' component={Manage} />
             </TabBar.Item>

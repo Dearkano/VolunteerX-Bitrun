@@ -5,6 +5,8 @@ import { createForm } from '../../node_modules/rc-form/lib';
 import nervos from '../nervos';
 import { transaction, simpleStoreContract } from '../simpleStore'
 import Submit from '../components/submit';
+import {withRouter} from 'react-router-dom';
+import {BigNumber} from 'bignumber.js';
 const submitTexts = {
     normal: '投票',
     submitting: '投票中',
@@ -17,23 +19,26 @@ if (isIPhone) {
         onTouchStart: e => e.preventDefault(),
     };
 }
-export default createForm()(class extends React.Component {
+export default withRouter(createForm()(class extends React.Component {
     state = {
         submitText: submitTexts.normal,
         errorText: '',
         data:{},
-        ids:[]
+        ids:[],
+        usersInfo:[]
       }
 
       async componentDidMount() {
+        
         const projectId = this.props.match.params.projectId;
         const data = await simpleStoreContract.methods
         .getInvestItemById(projectId)
         .call({
             from: window.neuron.getAccount()
         });
-        const ids = data.userIds;
-        alert(JSON.stringify(ids));
+  
+        const ids = data._userIds;
+      
         const usersInfo = [];
         for(let i in ids){
             let item = await simpleStoreContract.methods
@@ -59,12 +64,16 @@ export default createForm()(class extends React.Component {
           submitText: submitTexts.submitting,
          })
           console.log(tx.from);
-          simpleStoreContract.methods.voteInvestItem(this.props.match.params.projectId,this.inputRef.props.value).send(tx, function(err, res) {
+        
+
+
+          simpleStoreContract.methods.voteInvestItem(this.props.match.params.projectId,BigNumber(this.inputRef.props.value).shiftedBy(18)).send(tx, function(err, res) {
             if (res) {
               nervos.listeners.listenToTransactionReceipt(res)
                 .then(receipt => {
                   if (!receipt.errorMessage) {
                      that.setState({ submitText: submitTexts.submitted })
+               
                   } else {
                     throw new Error(receipt.errorMessage)
                   }
@@ -75,15 +84,18 @@ export default createForm()(class extends React.Component {
           })
     }
     render() {
+
+        let src =`/images/charity${this.props.match.params.projectId%5+1}.png`
+      
         const { getFieldProps } = this.props.form;
         const { type } = this.state;
         //  this.props.match.params.projectId
         return (
             <WingBlank>
-                <h3>乌镇-世界互联网大会志愿者招募</h3>
-                <img style={{ width: "100%", height: "100%" }} src="/images/volunteer.jpg" />
+                <h3>{this.state.data._title}</h3>
+                <img style={{ width: "100%", height: "100%" }} src={src} />
                 <p>
-                    世界互联网大会（World Internet Conference），是由中华人民共和国倡导并每年在浙江省嘉兴市桐乡乌镇举办的世界性互联网盛会，旨在搭建中国与世界互联互通的国际平台和国际互联网共享共治的中国平台，让各国在争议中求共识、在共识中谋合作、在合作中创共赢。
+                   {this.state.data._desc}
                     </p>
                 <WhiteSpace />
                 <InputItem
@@ -108,8 +120,9 @@ export default createForm()(class extends React.Component {
                 <WhiteSpace />
                 <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  onClick={this.onClickSubmit.bind(this)} ></Submit>
                 <WhiteSpace />
-                <UserList data={[{ userId:1,name: '张三' }, {userId:2, name: '李四' }, {userId:3,name: '王五' }]} />
+                <UserList data={this.state.usersInfo} mode={"charity"} />
             </WingBlank>
         );
     }
 })
+)

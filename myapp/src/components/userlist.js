@@ -9,12 +9,18 @@ const submitTexts = {
     submitting: '确认中',
     submitted: '发放成功',
   }
+  const submitTexts1 = {
+    normal: '取消',
+    submitting: '取消中',
+    submitted: '取消成功',
+  }
 const Item = List.Item;
 export default withRouter(class extends React.Component {
   state = {
     disabled: false,
     users:[],
     submitText: submitTexts.normal,
+    submitText1:submitTexts1.normal
   }
   async componentDidMount(){
     // const promise = await simpleStoreContract.methods.getWelfareItemById(this.props.match.params.projectId).call({
@@ -51,16 +57,22 @@ export default withRouter(class extends React.Component {
         }
       })
   }
+
+
+
+  
   convertDatatoCard(data){
     console.log("data"+data.userId);
     return <Item >
         <div style={{display:'flex',height:"32px",justifyContent:"space-between",alignItems:"center"}}>
         <div style={{display:'flex'}}>
-        <img style={{width:"25px",marginRight:"10px"}} src="/images/volunteer.jpg" />
+        <img style={{width:"25px",marginRight:"10px"}} src="/images/user.svg" />
         <div>{data._name}</div>
         </div>
         <div style={{display:'flex',alignItems:'center'}}>
-        <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  style={{width:"60px",height:"30px",marginRight:"15px",fontSize:"12px",lineHeight:"30px"}} onClick={this.confirm.bind(this,data.id)} ></Submit>
+        <Submit  text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  
+        style={{width:"60px",height:"30px",marginRight:"15px",fontSize:"12px",lineHeight:"30px"}} 
+        onClick={this.confirm.bind(this,data.id)} ></Submit>
         </div>
         </div>
         </Item>

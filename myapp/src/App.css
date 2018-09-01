@@ -46,8 +46,8 @@
   align-items: flex-start;
 }
 .space-carousel {
-  padding: 16px;
-  background: #DEF1E5;
+  padding-bottom: 12px;
+  background: #fff;
   overflow: hidden;
 }
 .placeholder {
@@ -58,25 +58,63 @@
   line-height: 30px;
   width: 100%;
 }
+
 .confirm__button--primary {
   display: block;
   margin: 3.8vh 0;
   width: 100%;
-  border: none;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #fff;
-  background: #fe792b;
-  box-shadow: 0 0 10px 0 #fe792b;
-}
+    color: #fff;
+    background-color: #108ee9;
+    border: 1PX solid #108ee9;
+    border-radius: 5px;
 
+      outline: 0 none;
+      -webkit-appearance: none;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0;
+      text-align: center;
+      font-size: 18px;
+      height: 47px;
+      line-height: 47px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+      white-space: nowrap;
+
+
+}
+.confirm__button--primary:active{
+  background: #0380d2;
+  color:(255,255,255,0.3);
+}
 .confirm__button--disabled {
-  color: #aaa !important;
-  background: #eee !important;
-  box-shadow: 0 0 10px 0 #eee !important;
+
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.4;
+      color: #fff;
+      background-color: #108ee9;
+      border: 1PX solid #108ee9;
+      border-radius: 5px;
+        display: block;
+        outline: 0 none;
+        -webkit-appearance: none;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0;
+        text-align: center;
+        font-size: 18px;
+        height: 47px;
+        line-height: 47px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        white-space: nowrap;
+
+    
+    
+  
+
 }
 
 
@@ -92,4 +130,25 @@
   color: #888;
   font-size: 14px;
   padding: 30px 0 18px 0;
+}
+
+.am-navbar{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+ 
+  background-color: #717176;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  width: 100%;
+  color: #fff;
+}
+.am-tab-bar{
+  margin-top: 45px;
+  overflow: hidden;
+  height: 93%;
 }

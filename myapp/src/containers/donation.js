@@ -1,13 +1,15 @@
-import {  InputItem } from 'antd-mobile';
+import {  InputItem,WingBlank } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import * as React from 'react';
 import nervos from '../nervos';
 import { transaction, simpleStoreContract } from '../simpleStore'
 import Submit from '../components/submit';
+import {BigNumber} from 'bignumber.js';
+
 const submitTexts = {
-    normal: '注册/登陆',
-    submitting: '注册中',
-    submitted: '登陆成功',
+    normal: '捐献',
+    submitting: '捐赠中',
+    submitted: '捐赠成功',
   }
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let moneyKeyboardWrapProps;
@@ -19,7 +21,10 @@ if (isIPhone) {
 export default createForm()(class extends React.Component {
     async onClickSubmit(){
         const blockNumber = await nervos.appchain.getBlockNumber();
-        console.log("blocknumber="+blockNumber);
+       
+        let num = '0x'+BigNumber(this.inputRef.props.value).shiftedBy(18).toString(16);
+        
+        transaction.value=num;
         const tx = {
             ...transaction,
             from:window.neuron.getAccount(),
@@ -30,7 +35,7 @@ export default createForm()(class extends React.Component {
           submitText: submitTexts.submitting,
          })
           console.log(tx.from);
-          simpleStoreContract.methods.login("张三", 0).send(tx, function(err, res) {
+          simpleStoreContract.methods.sendCoin().send(tx, function(err, res) {
             if (res) {
               nervos.listeners.listenToTransactionReceipt(res)
                 .then(receipt => {
@@ -52,7 +57,7 @@ export default createForm()(class extends React.Component {
     render() {
         //const { type } = this.state;
         const { getFieldProps } = this.props.form;
-        return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",height:"100%"}}>
+        return <WingBlank><div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",height:"100%",marginTop:"250px"}}>
            <InputItem
                     {...getFieldProps('money2', {
                         normalize: (v, prev) => {
@@ -73,7 +78,7 @@ export default createForm()(class extends React.Component {
                     moneyKeyboardWrapProps={moneyKeyboardWrapProps}
                 ></InputItem>
            <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}   onClick={this.onClickSubmit.bind(this)} ></Submit>
-        </div>;
+        </div></WingBlank>;
     }
 }
 )

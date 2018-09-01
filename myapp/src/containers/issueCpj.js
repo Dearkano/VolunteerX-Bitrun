@@ -4,6 +4,7 @@ import * as React from 'react';
 import Submit from '../components/submit';
 import nervos from '../nervos';
 import { transaction, simpleStoreContract } from '../simpleStore'
+import { BigNumber} from 'bignumber.js';
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let moneyKeyboardWrapProps;
 if (isIPhone) {
@@ -38,8 +39,8 @@ export default createForm()(class extends React.Component {
           this.setState({
           submitText: submitTexts.submitting,
          })
-
-          simpleStoreContract.methods.newInvestItem(this.titleRef.props.value,this.descriptionRef.props.value,this.amountRef.props.value,this.addressRef.props.value).send(tx, function(err, res) {
+         const amount = BigNumber(this.amountRef.props.value).shiftedBy(18);
+          simpleStoreContract.methods.newInvestItem(this.titleRef.props.value,this.descriptionRef.props.value,amount,this.addressRef.props.value).send(tx, function(err, res) {
             if (res) {
               nervos.listeners.listenToTransactionReceipt(res)
                 .then(receipt => {
@@ -61,6 +62,7 @@ export default createForm()(class extends React.Component {
             <List.Item>
                 <InputItem
                     {...getFieldProps('focus')}
+                 
                     clear
                     placeholder="                  请在此输入项目标题"
                     ref={el => this.titleRef = el}
@@ -84,8 +86,9 @@ export default createForm()(class extends React.Component {
                     ref={el => this.amountRef = el}
                     onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                     clear
+                    moneyKeyboardAlign={'left'}
                     moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                >奖励token</InputItem>
+                >目标金额</InputItem>
                 </List.Item>
                 <List.Item>
                 <InputItem
@@ -103,10 +106,11 @@ export default createForm()(class extends React.Component {
                     autoHeight
                     labelNumber={5}
                     ref={el=>this.descriptionRef=el}
+                    moneyKeyboardAlign={'left'}
                 />
 
             </List.Item>
-            <List.Item>
+            <List.Item >
             <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  onClick={this.onClickSubmit.bind(this)} ></Submit>
                     </List.Item>
         </List>;
