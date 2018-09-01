@@ -1,7 +1,15 @@
 import * as React from 'react';
-import { Button, InputItem, WingBlank, WhiteSpace } from 'antd-mobile';
+import { InputItem, WingBlank, WhiteSpace } from 'antd-mobile';
 import UserList from '../components/userlist';
 import { createForm } from '../../node_modules/rc-form/lib';
+import nervos from '../nervos';
+import { transaction, simpleStoreContract } from '../simpleStore'
+import Submit from '../components/submit';
+const submitTexts = {
+    normal: '投票',
+    submitting: '投票中',
+    submitted: '投票成功',
+  }
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let moneyKeyboardWrapProps;
 if (isIPhone) {
@@ -11,7 +19,60 @@ if (isIPhone) {
 }
 export default createForm()(class extends React.Component {
     state = {
-        type: 'money',
+        submitText: submitTexts.normal,
+        errorText: '',
+        data:{},
+        ids:[]
+      }
+
+      async componentDidMount() {
+        const projectId = this.props.match.params.projectId;
+        const data = await simpleStoreContract.methods
+        .getInvestItemById(projectId)
+        .call({
+            from: window.neuron.getAccount()
+        });
+        const ids = data.userIds;
+        alert(JSON.stringify(ids));
+        const usersInfo = [];
+        for(let i in ids){
+            let item = await simpleStoreContract.methods
+            .getUserById(ids[i])
+            .call({
+                from: window.neuron.getAccount()
+            });
+            item.id=ids[i];
+            usersInfo.push(item);
+        }
+        this.setState({data:data,usersInfo:usersInfo});
+        }
+    async onClickSubmit(){
+        const blockNumber = await nervos.appchain.getBlockNumber();
+        console.log("blocknumber="+blockNumber);
+        const tx = {
+            ...transaction,
+            from:window.neuron.getAccount(),
+            validUntilBlock: +blockNumber + 88,
+          }
+          var that = this;
+          this.setState({
+          submitText: submitTexts.submitting,
+         })
+          console.log(tx.from);
+          simpleStoreContract.methods.voteInvestItem(this.props.match.params.projectId,this.inputRef.props.value).send(tx, function(err, res) {
+            if (res) {
+              nervos.listeners.listenToTransactionReceipt(res)
+                .then(receipt => {
+                  if (!receipt.errorMessage) {
+                     that.setState({ submitText: submitTexts.submitted })
+                  } else {
+                    throw new Error(receipt.errorMessage)
+                  }
+                })
+            } else {
+                that.setState({ submitText: submitTexts.normal })
+            }
+          })
     }
     render() {
         const { getFieldProps } = this.props.form;
@@ -45,9 +106,9 @@ export default createForm()(class extends React.Component {
                     moneyKeyboardWrapProps={moneyKeyboardWrapProps}
                 ></InputItem>
                 <WhiteSpace />
-                <Button type="primary">投票</Button>
+                <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  onClick={this.onClickSubmit.bind(this)} ></Submit>
                 <WhiteSpace />
-                <UserList data={[{ name: '张三' }, { name: '李四' }, { name: '王五' }]} />
+                <UserList data={[{ userId:1,name: '张三' }, {userId:2, name: '李四' }, {userId:3,name: '王五' }]} />
             </WingBlank>
         );
     }

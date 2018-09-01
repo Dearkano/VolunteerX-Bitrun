@@ -17,8 +17,11 @@ export default withRouter(class extends React.Component{
       case'charity':
       this.props.history.push("/issueCpj");
       break;
-      case'logout':
-      this.props.history.push("/logout");
+      case'donation':
+      this.props.history.push("/donation");
+      break;
+      case'manage':
+      this.props.history.push("/manage");
       break;
     }
     this.setState({
@@ -46,8 +49,9 @@ export default withRouter(class extends React.Component{
                     overlay={[
                       (<Item key="4" value="volunteer" icon={myImg('tOtXhkIWzwotgGSeptou')} data-seed="logId">志愿项目</Item>),
                       (<Item key="5" value="charity" icon={myImg('PKAgAqZWJVNwKsAJSmXd')} style={{ whiteSpace: 'nowrap' }}>捐赠项目</Item>),
-                      (<Item key="6" value="logout" icon={myImg('uQIYTFeRrjPELImDRrPt')}>
-                        <span style={{ marginRight: 5 }}>注销</span>
+                      (<Item key="6" value="donation" icon={myImg('PKAgAqZWJVNwKsAJSmXd')} style={{ whiteSpace: 'nowrap' }}>捐献资金</Item>),
+                      (<Item key="7" value="manage" icon={myImg('uQIYTFeRrjPELImDRrPt')}>
+                        <span style={{ marginRight: 5 }}>管理</span>
                       </Item>),
                     ]}
                     align={{
@@ -71,7 +75,7 @@ export default withRouter(class extends React.Component{
 
     
               ]}
-            >公益众筹</NavBar>
+            >VolunteerX</NavBar>
           </div>
         )
     }

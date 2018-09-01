@@ -1,4 +1,4 @@
-import { List,Card} from 'antd-mobile';
+import { List} from 'antd-mobile';
 import {withRouter} from 'react-router-dom';
 import * as React from 'react';
 import CardView from '../components/card';
@@ -8,7 +8,7 @@ export default withRouter(class extends React.Component {
     disabled: false,
   }
   convertDatatoCard(data){
-    return <Item onClick={()=>this.props.history.push(`/detail/${data.mode}/${data.id}`)}><CardView data={data}/></Item>
+    return <Item onClick={()=>this.props.history.push(`/detail/${this.props.mode}/${data.id}`)}><CardView data={data}/></Item>
   }
   render() {
 
