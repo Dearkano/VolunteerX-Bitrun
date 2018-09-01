@@ -77,7 +77,7 @@ export default class extends React.Component {
                     </p>
                 <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal} onClick={this.onClickSubmit.bind(this)} ></Submit>
                 <WhiteSpace />
-                <UserList data={this.state.usersInfo} />
+                <UserList data={this.state.usersInfo} mode={'volunteer'}  itemId={this.props.match.params.projectId} />
             </WingBlank>
         );
     }

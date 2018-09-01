@@ -120,7 +120,7 @@ export default withRouter(createForm()(class extends React.Component {
                 <WhiteSpace />
                 <Submit text={this.state.submitText} disabled={this.state.submitText !== submitTexts.normal}  onClick={this.onClickSubmit.bind(this)} ></Submit>
                 <WhiteSpace />
-                <UserList data={this.state.usersInfo} mode={"charity"} />
+                <UserList data={this.state.usersInfo} mode={"charity"} itemId={this.props.match.params.projectId}/>
             </WingBlank>
         );
     }
