@@ -26,11 +26,13 @@ export default class extends React.Component {
         .call({
           from:addr,
         });
+    
         let token = await simpleStoreContract.methods
         .balanceOf(addr)
         .call({
           from:addr,
         });
+
         token = BigNumber(token).shiftedBy(-18).toString();
         const itemIds = userInfo._itemIds;
       
@@ -73,7 +75,7 @@ export default class extends React.Component {
         this.setState({showUnfinishedEvent:this.state.showUnfinishedEvent?false:true});
     }
     render() {
-        const _identity = this.state.userInfo.identity===0?"志愿者":"公益组织";
+        const _identity = this.state.userInfo._identity==0?"志愿者":"公益组织";
         console.log(this.state);
         const content= <div>
         <WingBlank size="lg">
