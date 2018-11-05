@@ -14,7 +14,8 @@ export default class extends React.Component {
                 from: window.neuron.getAccount(),
             });
         let data = [];
-        
+        console.log("=======================")
+        console.log(ids)
         for (let i in ids) {
             let item = await simpleStoreContract.methods
             .getInvestItemById(ids[i])
